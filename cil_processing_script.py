@@ -7,6 +7,7 @@ def cil_process(df, df_ref):
 
     # Drop rows 
     df = df[~df["document type"].isin(doc_type_values_to_drop) & df["document type"].notna()]
+    df = df[df["documentation-url"].str.startswith("http", na=False)]
 
     # Drop rows where the value in any column is "No CIL"
     df = df[df["adopted-date"] != "No CIL"]
