@@ -295,3 +295,4 @@ dist
 .python-version
 .vscode
 package-lock.json
+output_tables/

@@ -4,7 +4,7 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
-def extract_table(input, table_index=None, key_words=None, output_folder="output_tables", from_file=False, from_web=False):
+def extract_table(input, table_index=None, key_words=None, from_file=False, from_web=False):
     extracted_tables = []
     
     if from_file:
@@ -38,8 +38,6 @@ def extract_table(input, table_index=None, key_words=None, output_folder="output
     if table_index is not None and len(extracted_tables) > table_index:
         extracted_tables = [extracted_tables[table_index]]
     
-    # Save only filtered tables
-    _save_to_csv(extracted_tables, output_folder)
     return extracted_tables
 
 def _extract_from_pdf(pdf_path):
@@ -74,10 +72,3 @@ def _extract_from_web(url):
         print(f"Error fetching webpage: {e}")
         return []
 
-def _save_to_csv(tables, output_folder):
-    """Saves extracted tables to CSV files."""
-    os.makedirs(output_folder, exist_ok=True)
-    for idx, df in enumerate(tables):
-        csv_filename = os.path.join(output_folder, f"filtered_table_{idx+1}.csv")
-        df.to_csv(csv_filename, index=False)
-        print(f"Table saved to {csv_filename}")
