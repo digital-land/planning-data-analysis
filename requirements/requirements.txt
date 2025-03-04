@@ -18,6 +18,8 @@ click==8.1.8
     # via -r requirements/requirements.in
 cryptography==44.0.1
     # via pdfminer-six
+fuzzywuzzy==0.18.0
+    # via -r requirements/requirements.in
 idna==3.10
     # via requests
 numpy==2.2.3
