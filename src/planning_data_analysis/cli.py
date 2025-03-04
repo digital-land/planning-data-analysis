@@ -1,5 +1,6 @@
 import click
 
+from planning_data_analysis.cil_process import process_and_save
 from planning_data_analysis.collect import collect_plan_data
 from planning_data_analysis.extract import extract_table
 from planning_data_analysis.utils import save_to_csv
@@ -79,6 +80,32 @@ def collect_plan_data_command(input_csv, reference_csv, output_path, failed_urls
     Collect plan data from URLs and save to CSV.
     """
     collect_plan_data(input_csv, reference_csv, output_path, failed_urls_path)
+
+
+@cli.command(name="process-cil")
+@click.option(
+    "--input",
+    "input_csv",
+    required=True,
+    help="Path to input CSV file containing CIL and IFS documents",
+)
+@click.option(
+    "--reference",
+    "reference_csv",
+    required=True,
+    help="Path to reference CSV file containing local authority mappings",
+)
+@click.option(
+    "--output",
+    "output_dir",
+    default="output_cil",
+    help="Directory to save the output CSV files",
+)
+def process_cil_command(input_csv, reference_csv, output_dir):
+    """
+    Process Community Infrastructure Levy (CIL) data and save separate datasets for CIL and IFS.
+    """
+    process_and_save(input_csv, reference_csv, output_dir)
 
 
 if __name__ == "__main__":
