@@ -6,8 +6,6 @@
 #
 beautifulsoup4==4.13.3
     # via -r requirements/requirements.in
-branca==0.8.1
-    # via folium
 certifi==2025.1.31
     # via
     #   pyogrio
@@ -23,8 +21,6 @@ click==8.1.8
     # via -r requirements/requirements.in
 cryptography==44.0.1
     # via pdfminer-six
-folium==0.19.5
-    # via -r requirements/requirements.in
 fuzzywuzzy==0.18.0
     # via -r requirements/requirements.in
 geopandas==1.0.1
@@ -33,17 +29,10 @@ greenlet==3.1.1
     # via playwright
 idna==3.10
     # via requests
-jinja2==3.1.5
-    # via
-    #   branca
-    #   folium
 lxml==5.3.1
     # via python-docx
-markupsafe==3.0.2
-    # via jinja2
 numpy==2.2.3
     # via
-    #   folium
     #   geopandas
     #   pandas
     #   pyogrio
@@ -81,9 +70,7 @@ python-docx==1.1.2
 pytz==2025.1
     # via pandas
 requests==2.32.3
-    # via
-    #   -r requirements/requirements.in
-    #   folium
+    # via -r requirements/requirements.in
 shapely==2.0.7
     # via geopandas
 six==1.17.0
@@ -99,5 +86,3 @@ tzdata==2025.1
     # via pandas
 urllib3==2.3.0
     # via requests
-xyzservices==2025.1.0
-    # via folium
