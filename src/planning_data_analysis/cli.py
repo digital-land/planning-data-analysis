@@ -1,10 +1,13 @@
 import click
 
 from planning_data_analysis.cil_process import process_and_save
-from planning_data_analysis.collect import collect_plan_data
+from planning_data_analysis.cluster_analysis import analyze_clusters
+from planning_data_analysis.collect_plan_data import collect_plan_data
+from planning_data_analysis.eda_report import generate_eda_report
 from planning_data_analysis.extract import extract_table
 from planning_data_analysis.utils import save_to_csv
 from planning_data_analysis.validators import validate_pdf, validate_url
+from planning_data_analysis.wfs_collect import collect_wfs_layers
 
 
 @click.group()
@@ -106,6 +109,80 @@ def process_cil_command(input_csv, reference_csv, output_dir):
     Process Community Infrastructure Levy (CIL) data and save separate datasets for CIL and IFS.
     """
     process_and_save(input_csv, reference_csv, output_dir)
+
+
+@cli.command(name="analyze-clusters")
+@click.option(
+    "--input",
+    "input_csv",
+    required=True,
+    help="Path to input CSV file containing invalid application reasons",
+)
+@click.option(
+    "--output",
+    "output_dir",
+    default="output_clusters",
+    help="Directory to save output files",
+)
+def analyze_clusters_command(input_csv, output_dir):
+    """
+    Analyze clusters in invalid application reasons and generate visualizations and reports.
+    """
+    analyze_clusters(input_csv, output_dir)
+
+
+@cli.command(name="generate-eda-report")
+@click.option(
+    "--dataset",
+    "dataset",
+    required=True,
+    help="Name of the dataset",
+)
+@click.option(
+    "--input",
+    "input_dir",
+    required=True,
+    help="Path to input directory containing geospatial files",
+)
+@click.option(
+    "--output",
+    "output_dir",
+    default="output_eda",
+    help="Directory to save reports and visualizations",
+)
+def generate_eda_report_command(dataset, input_dir, output_dir):
+    """
+    Generate an exploratory data analysis report for geospatial data.
+    """
+    generate_eda_report(dataset, input_dir, output_dir)
+
+
+@cli.command(name="collect-wfs")
+@click.option(
+    "--capabilities-url",
+    "capabilities_url",
+    default="https://environment.data.gov.uk/spatialdata/casi-and-lidar-habitat-map/wfs?service=WFS&request=GetCapabilities&version=2.0.0",  # noqa: E501
+    help="URL for the WFS GetCapabilities request. Defaults to CASI and LiDAR habitat map service.",
+)
+@click.option(
+    "--wfs-url",
+    "wfs_url",
+    default="https://environment.data.gov.uk/spatialdata/casi-and-lidar-habitat-map/wfs",  # noqa: E501
+    help="Base URL for the WFS service. Defaults to CASI and LiDAR habitat map service.",
+)
+@click.option(
+    "--output",
+    "output_dir",
+    default="output_wfs",
+    help="Directory to save the output GeoPackage files",
+)
+def collect_wfs_command(capabilities_url, wfs_url, output_dir):
+    """
+    Collect data from all available WFS layers and save as GeoPackage files.
+    The default URLs point to the CASI and LiDAR habitat map service, but these can be overridden
+    to collect data from other WFS services.
+    """
+    collect_wfs_layers(capabilities_url, wfs_url, output_dir)
 
 
 if __name__ == "__main__":

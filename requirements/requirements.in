@@ -4,3 +4,7 @@ requests
 beautifulsoup4
 click
 fuzzywuzzy
+playwright
+geopandas
+python-docx
+folium
