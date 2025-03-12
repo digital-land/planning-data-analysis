@@ -1,24 +1,41 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
 name = "planning-data-analysis"
 version = "0.1.0"
-description = "Planning data analysis tools"
+authors = [
+  { name="MHCLG", email="" },
+]
+description = "Tools for analyzing planning data"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
 dependencies = [
-    "click>=8.0,<9.0",
     "pdfplumber",
     "pandas",
     "requests",
     "beautifulsoup4",
+    "click",
+    "fuzzywuzzy",
+    "playwright",
+    "geopandas",
+    "python-docx",
+    "numpy",
+    "matplotlib",
+    "scikit-learn",
+    "folium",
+    "python-slugify",
+    "pyppeteer",
 ]
 
+[project.urls]
+"Homepage" = "https://github.com/mhclg/planning-data-analysis"
+
 [project.scripts]
-pda = "planning_data_analysis.cli:cli"
-
-
-[tool.setuptools.packages]
-find = { where = ["src"], include = ["planning_data_analysis*"] }
+planning-data = "planning_data_analysis.cli:cli"
