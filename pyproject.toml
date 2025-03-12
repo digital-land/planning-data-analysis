@@ -23,6 +23,7 @@ dependencies = [
     "beautifulsoup4",
     "click",
     "fuzzywuzzy",
+    "python-Levenshtein",
     "playwright",
     "geopandas",
     "python-docx",
